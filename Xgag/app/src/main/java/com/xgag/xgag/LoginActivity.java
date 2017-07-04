@@ -97,7 +97,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
-        m_LoginProxy = ProxyFactory.create();
+        m_LoginProxy = ProxyFactory.create(ILoginProxy.class);
     }
 
     private void populateAutoComplete() {
@@ -193,6 +193,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 public void execute(Boolean param) {
                     if (param){
                         navigateToMainActivity();
+                    } else {
+                        mPasswordView.setError(getString(R.string.error_incorrect_password));
+                        mPasswordView.requestFocus();
                     }
 
                     showProgress(false);
